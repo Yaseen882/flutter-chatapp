@@ -1,0 +1,48 @@
+        [HttpPut]
+        [Route("UpdateTeacherData")]
+        public ResponseViewModel UpdateTeacherData(DBTeacher teacher)
+        {
+
+            ResponseViewModel response = new ResponseViewModel();
+
+            DBTeacher OldTeacherObject = _webAPiDBHelper.dBTeacher.Where(teacherRow => teacherRow.Id == teacher.Id.FirstOrDefault();
+
+
+            if (OldTeacherObject == null)
+            {
+                response.Status = "Invalid Id";
+            }
+            else
+            {
+                OldTeacherObject.Name = teacher.Name;
+                _webAPiDBHelper.dBTeacher.Update(OldTeacherObject);
+                _webAPiDBHelper.SaveChanges();
+                response.Status = "Updated Successfully";
+            }
+            return response;
+        }
+
+        
+        [HttpDelete]
+        [Route("DeleteTeacherData")]
+        public ResponseViewModel DeleteTeacherData(TeacherDeleteViewModel teacher)
+        {
+
+            ResponseViewModel response = new ResponseViewModel();
+
+            DBTeacher OldTeacherObject = _webAPiDBHelper.dBTeacher.Where(teacherRow => teacherRow.Id == teacher.Id).FirstOrDefault();
+
+
+            if (OldTeacherObject == null)
+            {
+                response.Status = "Invalid Id";
+            }
+            else
+            {
+
+                _webAPiDBHelper.dBTeacher.Remove(OldTeacherObject);
+                _webAPiDBHelper.SaveChanges();
+                response.Status = "Deleted Successfully";
+            }
+            return response;
+        } 
