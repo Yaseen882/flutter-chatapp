@@ -24,6 +24,7 @@ class ChatScreen extends StatelessWidget {
           BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
               if (state is ChatLoadingState) {
+                //yaseen
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
